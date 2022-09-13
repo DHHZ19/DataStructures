@@ -1,0 +1,9 @@
+test:
+    timeout: 10m
+    script:
+      - cp /etc/gitlab-runner/tests/cisc231/01/edu/ust/cisc/*.java src/test/java/edu/ust/cisc/.
+      - cp /etc/gitlab-runner/tests/cisc231/*.jar lib/.
+      - mvn -q test > output.txt
+    after_script:
+      - cd /etc/gitlab-runner
+      - ./cisc231.grade.script
