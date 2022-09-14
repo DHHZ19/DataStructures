@@ -14,12 +14,12 @@ public class CiscArrayList<E> implements CiscList<E> {
     public boolean isEmpty() {
         return size == 0;
     }
-  public int indexOf(Object o){
-    for(int i = 0; i < size; i++){
-        if(o == arr[i]){
-            return i;
+    public int indexOf(Object o){
+        for(int i = 0; i < size; i++){
+            if(o == arr[i]){
+                return i;
+            }
         }
-    }
     return -1;
-  }
+    }
 }
