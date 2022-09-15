@@ -1,25 +1,28 @@
 package edu.ust.cisc;
 
 public class CiscArrayList<E> implements CiscList<E> {
-    private int DEFAULT_CAPACITY = 10;
+    private static final int DEFAULT_CAPACITY = 10;
     private int size = 0;
-    private Object E[];
+    private E[] arr;
 
-    CiscArrayList(){
-    arr = new Object [DEFAULT_CAPACITY];
+    CiscArrayList() {
+        arr = (E[]) new Object[DEFAULT_CAPACITY];
     }
-     public int size(){
+
+    public int size() {
         return size;
     }
+
     public boolean isEmpty() {
         return size == 0;
     }
-    public int indexOf(Object o){
-        for(int i = 0; i < size; i++){
-            if(o == arr[i]){
+
+    public int indexOf(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (o == arr[i]) {
                 return i;
             }
         }
-    return -1;
+        return -1;
     }
 }
