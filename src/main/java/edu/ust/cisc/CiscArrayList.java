@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class CiscArrayList<E> implements CiscList<E> {
     private static final int DEFAULT_CAPACITY = 10;
     private int size = 0;
-    private final E[] elementData;
+    private E[] elementData;
 
     CiscArrayList() {
         this.elementData = (E[]) new Object[DEFAULT_CAPACITY];
@@ -15,7 +15,7 @@ public class CiscArrayList<E> implements CiscList<E> {
         if(initialCapacity <= 0){
             throw new IllegalArgumentException();
         }
-        elementData = (E[]) new Object[initialCapacity];
+        this.elementData = (E[]) new Object[initialCapacity];
     }
 
     public int size() {
@@ -40,7 +40,9 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public Object[] toArray() {
-        return new Object[0];
+        E[] array = (E[]) new Object[size];
+        System.arraycopy(elementData, 0, array, 0, size);
+        return array;
     }
 
     public boolean add(E e) {
@@ -76,7 +78,7 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public E set(int index, E element) {
-        E copy = elementData[index];
+        E copy = (E) elementData[index];
         elementData[index] = element;
         return copy;
     }
