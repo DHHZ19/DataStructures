@@ -8,7 +8,7 @@ public class CiscArrayList<E> implements CiscList<E> {
     private final E[] elementData;
 
     CiscArrayList() {
-        elementData = (E[]) new Object[DEFAULT_CAPACITY];
+        this.elementData = (E[]) new Object[DEFAULT_CAPACITY];
     }
 
     CiscArrayList(int initialCapacity){
@@ -16,19 +16,24 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public int size() {
-        return size;
+        return this.size;
     }
 
     public boolean isEmpty() {
-        return size == 0;
+        return this.size == 0;
     }
 
     public boolean contains(Object o) {
+        for(int i = 0; i < size; i++){
+            if(elementData[i] == o){
+                return true;
+            }
+        }
         return false;
     }
 
     public Iterator<E> iterator() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     public Object[] toArray() {
@@ -36,9 +41,18 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public boolean add(E e) {
+
         return false;
     }
     public boolean remove(Object o) {
+        for(int i = 0; i < size; i++){
+            if(o == elementData[i]){
+                for(int j = 0; j < size; j++){
+                    elementData[j] = elementData[j + 1];
+                }
+                return true;
+            }
+        }
         return false;
     }
 
@@ -64,7 +78,7 @@ public class CiscArrayList<E> implements CiscList<E> {
 
     public int indexOf(Object o) {
         for (int i = 0; i < size; i++) {
-            if (o == elementData[i]) {
+            if (elementData[i].equals(o)) {
                 return i;
             }
         }
