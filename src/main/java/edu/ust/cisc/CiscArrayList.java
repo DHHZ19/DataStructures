@@ -1,7 +1,7 @@
 package edu.ust.cisc;
 
 import java.util.Iterator;
-
+import java.util.Arrays;
 public class CiscArrayList<E> implements CiscList<E> {
     private static final int DEFAULT_CAPACITY = 10;
     private int size = 0;
@@ -41,8 +41,8 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public boolean add(E e) {
-
-        return false;
+        elementData[size++] = e;
+        return true;
     }
     public boolean remove(Object o) {
         for(int i = 0; i < size; i++){
@@ -57,15 +57,25 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public void clear() {
-
+        if(size > 0){
+            Arrays.fill(elementData, 0, size, null);
+            size = 0;
+        }
     }
 
     public E get(int index) {
-        return null;
+       for(int i = 0; i < size; i++){
+           if(i == index){
+               return elementData[index];
+           }
+       }
+        throw new IndexOutOfBoundsException();
     }
 
     public E set(int index, E element) {
-        return null;
+        E copy = elementData[index];
+        elementData[index] = element;
+        return copy;
     }
 
     public void add(int index, E element) {
