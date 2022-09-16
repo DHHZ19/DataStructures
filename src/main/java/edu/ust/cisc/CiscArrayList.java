@@ -12,6 +12,9 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     CiscArrayList(int initialCapacity){
+        if(initialCapacity <= 0){
+            throw new IllegalArgumentException();
+        }
         elementData = (E[]) new Object[initialCapacity];
     }
 
@@ -79,7 +82,11 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public void add(int index, E element) {
-
+        for(int i = 0; i < size; i++){
+            if(i == index){
+                elementData[i] = element;
+            }
+        }
     }
 
     public E remove(int index) {
