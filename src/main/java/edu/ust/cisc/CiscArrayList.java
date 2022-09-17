@@ -40,7 +40,7 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public Object[] toArray() {
-        E[] array = (E[]) new Object[size];
+        E[] array = (E[]) new Object[elementData.length];
         System.arraycopy(elementData, 0, array, 0, size);
         return array;
     }
@@ -50,15 +50,7 @@ public class CiscArrayList<E> implements CiscList<E> {
         return true;
     }
     public boolean remove(Object o) {
-        for(int i = 0; i < size; i++){
-            if(o == elementData[i]){
-                for(int j = 0; j < size; j++){
-                    elementData[j] = elementData[j + 1];
-                }
-                return true;
-            }
-        }
-        return false;
+       return false;
     }
 
     public void clear() {
@@ -90,10 +82,22 @@ public class CiscArrayList<E> implements CiscList<E> {
             }
         }
     }
-
     public E remove(int index) {
-        return null;
-    }
+        if(index > elementData.length || index < 0){
+            throw new IndexOutOfBoundsException();
+        }
+        E element = elementData[index];
+        if (index != --size)
+        System.arraycopy(elementData, index + 1, elementData, index, size - index);
+        // Params:
+        //src – the source array.
+        // srcPos – starting position in the source array.
+        // dest – the destination array.
+        // destPos – starting position in the destination data.
+        // length – the number of array elements to be copied.
+        elementData[size] = null;
+        return element;
+        }
 
     public int indexOf(Object o) {
         for (int i = 0; i < size; i++) {
