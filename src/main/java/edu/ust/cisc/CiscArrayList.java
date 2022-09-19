@@ -40,8 +40,14 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public Object[] toArray() {
-        E[] array = (E[]) new Object[elementData.length];
+        E[] array = (E[]) new Object[size];
         System.arraycopy(elementData, 0, array, 0, size);
+        // Params:
+        //src – the source array.
+        // srcPos – starting position in the source array.
+        // dest – the destination array.
+        // destPos – starting position in the destination data.
+        // length – the number of array elements to be copied.
         return array;
     }
 
@@ -50,7 +56,7 @@ public class CiscArrayList<E> implements CiscList<E> {
         return true;
     }
     public boolean remove(Object o) {
-       return false;
+        return true;
     }
 
     public void clear() {
@@ -108,7 +114,11 @@ public class CiscArrayList<E> implements CiscList<E> {
         return -1;
     }
     public void ensureCapacity(int minimumCapacity){
-
+        int dataLength = elementData.length;
+        if(minimumCapacity > elementData.length){
+            System.arraycopy(elementData, 0, elementData, 0, elementData.length * 2);
+            Arrays.fill(elementData, dataLength + 1, elementData.length, null);
+        }
     }
 
 }
