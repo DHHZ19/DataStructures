@@ -52,6 +52,7 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public boolean add(E e) {
+        ensureCapacity(size + 1);
         elementData[size++] = e;
         return true;
     }
@@ -98,11 +99,15 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public void add(int index, E element) {
-        for(int i = 0; i < size; i++){
-            if(i == index){
-                elementData[i] = element;
-            }
+        // should shift elements to the right
+        if(index < 0 || index > size){
+            throw new ArrayIndexOutOfBoundsException();
         }
+        for(int i = size; i > index; i--){
+            elementData[i] = elementData[i - 1];
+        }
+        elementData[index] = element;
+        size++;
     }
     public E remove(int index) {
         if(index > elementData.length || index < 0){
@@ -130,12 +135,10 @@ public class CiscArrayList<E> implements CiscList<E> {
         return -1;
     }
     public void ensureCapacity(int minimumCapacity){
-        int dataLength = elementData.length;
-        if(minimumCapacity > dataLength){
-            E[] newData = (E[]) new Object[Math.max(dataLength * 2, minimumCapacity)];
-            System.arraycopy(elementData, 0, newData, 0, size);
-            elementData = newData;
-        }
+      if(minimumCapacity > elementData.length){
+        int increasedCapacity = elementData.length * 2;
+        elementData = Arrays.copyOf(elementData, increasedCapacity);
+      }
     }
 
 }
