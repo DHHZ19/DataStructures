@@ -135,10 +135,12 @@ public class CiscArrayList<E> implements CiscList<E> {
         return -1;
     }
     public void ensureCapacity(int minimumCapacity){
-      if(minimumCapacity > elementData.length){
-        int increasedCapacity = elementData.length * 2;
-        elementData = Arrays.copyOf(elementData, increasedCapacity);
-      }
+       if(minimumCapacity - elementData.length > 1){
+          int increasedCapacity = elementData.length * 2;
+          elementData = Arrays.copyOf(elementData, increasedCapacity + 1);
+      }else if(minimumCapacity - elementData.length == 1){
+           elementData = Arrays.copyOf(elementData, minimumCapacity);
+       }
     }
 
 }
