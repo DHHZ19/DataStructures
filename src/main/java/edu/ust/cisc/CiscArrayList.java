@@ -94,7 +94,7 @@ public class CiscArrayList<E> implements CiscList<E> {
     }
 
     public E set(int index, E element) {
-        E copy = (E) elementData[index];
+        E copy = elementData[index];
         elementData[index] = element;
         return copy;
     }
@@ -119,7 +119,7 @@ public class CiscArrayList<E> implements CiscList<E> {
         if (index != --size)
             System.arraycopy(elementData, index + 1, elementData, index, size - index);
         // Params:
-        //src – the source array.
+        // src – the source array.
         // srcPos – starting position in the source array.
         // dest – the destination array.
         // destPos – starting position in the destination data.
@@ -140,11 +140,11 @@ public class CiscArrayList<E> implements CiscList<E> {
     public void ensureCapacity(int minimumCapacity) {
         int oldCapacity = elementData.length;
         if (minimumCapacity > oldCapacity) {
-            int newCapacity = (oldCapacity * 2)  + 1;
-            if (newCapacity < minimumCapacity)
+            int newCapacity = oldCapacity * 2  + 1;
+            if (newCapacity < minimumCapacity) {
                 newCapacity = minimumCapacity;
+            }
             elementData = (E[]) new Object[newCapacity];
         }
-
     }
 }
