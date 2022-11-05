@@ -140,27 +140,29 @@ public class CiscBST<E extends Comparable<E>> implements CiscCollection<E> {
 
         CiscBSTIterator(BSTNode<E> node) {
             stack = new Stack<BSTNode<E>>();
-            if (node != null) {
-                while (node.left != null) {
-                    stack.push(node.left);
-                    node = node.left;
-                }
+            while(node != null){
                 stack.push(node);
-                while (node.right != null) {
-                    stack.push(node.left);
-                    node = node.right;
-                }
+                node = node.left;
             }
         }
 
         @Override
         public boolean hasNext() {
-            return !(stack.empty());
+            return !stack.isEmpty();
         }
 
         @Override
         public E next() {
-            return stack.pop().data;
+            BSTNode<E> node = stack.pop();
+            E result = node.data;
+            if(node.right != null){
+                node = node.right;
+                while(node != null){
+                    stack.push(node);
+                    node = node.left;
+                }
+            }
+            return result;
         }
     }
 
