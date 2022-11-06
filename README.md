@@ -4,4 +4,4 @@ Data structures with Java, C#, TypeScript mainly using assignments from CS class
 
 
 ## You Can learn more about data strcutures using this readme along with the repo. 
-** still not done making **
+**not done**
