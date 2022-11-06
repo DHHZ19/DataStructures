@@ -1,5 +1,5 @@
 # DataStructures
-Data structures with Java, C#, TypeScript mainly using assignments from CS class and other courses
+Data structures with Java, C#, TypeScript
 
 
 
