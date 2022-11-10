@@ -28,18 +28,39 @@ public class CiscPriorityQueue<E extends Comparable<E>> implements  CiscCollecti
            return elementData[0];
         }
     }
+    /*
+    The rightmost "leaf" in the max heap should become the new root then bubbled
+    down to its final position. If a swap is needed and both children have the
+    same value, your implementation should swap with the left
+    child.
+    */
     public E remove(){
-        if(size() == 0){
-            throw new NoSuchElementException();
-        }else{
-            E removedEl = elementData[0];
-            elementData[0] = null;
+        E result = peek();
 
+        // move rightmost leaf to become new root
+        elementData[0] = elementData[size-1];
+        elementData[size-1] = null;
+        size--;
 
-
-
-            return removedEl;
+        // bubble down
+        int index = 0;
+        boolean found = false;
+        while(!found && hasLeftChild(index)) {
+            int left = leftChild(index);
+            int right = rightChild(index);
+            int child = left;
+            if (hasRightChild(index) && compare(elementData[right],
+                    (elementData[left])) > 0) {
+                child = right;
+            }
+            if (compare(elementData[index],elementData[child]) < 0){
+                swap(elementData, index, child);
+                index = child;
+            }else{
+                found = true; // found proper location; stop the loop
+            }
         }
+        return result;
     }
     public void add(E value){
         // resize if necessary
@@ -76,9 +97,19 @@ public class CiscPriorityQueue<E extends Comparable<E>> implements  CiscCollecti
         return size == 0;
     }
 
-    @Override
-    public boolean contains(Object o) {
-        return false;
+    public boolean contains(Object value){
+        return contains(value, 0);
+    }
+
+    private boolean contains(Object value, int index) {
+        if(index >= size || compare(elementData[index], (E) value) < 0){
+            return false;
+        }else if(compare(elementData[index], (E) value) == 0){
+            return true;
+        }else{
+            return contains(value, leftChild(index)) || contains(value,
+                    rightChild(index));
+        }
     }
     @Override
     public Iterator<E> iterator() {
@@ -146,6 +177,18 @@ public class CiscPriorityQueue<E extends Comparable<E>> implements  CiscCollecti
         }else{
             return item1.compareTo(item2);
         }
+    }
+    private boolean hasLeftChild(int index){
+        return elementData[index * 2 + 1] != null;
+    }
+    private boolean hasRightChild(int index){
+        return elementData[index * 2 + 2] != null;
+    }
+    private int leftChild(int index){
+        return index * 2 + 1;
+    }
+    private int rightChild(int index){
+        return index * 2 + 2;
     }
     private class CiscPriorityQueueIterator implements Iterator<E> {
         private int nextIndex;
